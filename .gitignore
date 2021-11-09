@@ -31,4 +31,4 @@ lerna-debug.log*
 .vscode
 
 # EVNs
-environments/.evn.development
+environments/.env.development
