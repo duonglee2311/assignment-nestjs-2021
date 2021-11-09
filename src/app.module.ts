@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import configuration from './config/configuration';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -22,7 +23,7 @@ import configuration from './config/configuration';
         username: configService.get('database.user'),
         password: configService.get('database.password'),
         database: configService.get('database.name'),
-        entities: [],
+        entities: [join(__dirname, '**', '*.entity.{ts,js}')],
         synchronize: configService.get('database.sync'),
       }),
     }),
