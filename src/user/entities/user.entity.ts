@@ -17,6 +17,6 @@ export class UserEntity extends BaseEntity {
   @Column({ nullable: false, type: 'varchar' })
   password: string;
 
-  @Column({ nullable: false, type: 'date' })
+  @Column({ nullable: true, type: 'date' })
   birthday: string;
 }
