@@ -1,9 +1,10 @@
+import { ConfigModule, ConfigService } from '@nestjs/config';
+
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
-import { ConfigModule, ConfigService } from '@nestjs/config';
 import configuration from './config/configuration';
 import { join } from 'path';
 
@@ -25,6 +26,15 @@ import { join } from 'path';
         database: configService.get('database.name'),
         entities: [join(__dirname, '**', '*.entity.{ts,js}')],
         synchronize: configService.get('database.sync'),
+        ssl: configService.get('database.ssl'),
+        extra:
+          configService.get('database.ssl') === true
+            ? {
+                ssl: {
+                  rejectUnauthorized: false,
+                },
+              }
+            : {},
       }),
     }),
     UserModule,

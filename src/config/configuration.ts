@@ -6,6 +6,7 @@ export default () => ({
     name: process.env.DATABASE_NAME,
     user: process.env.DATABASE_USER,
     password: `${process.env.DATABASE_PASSWORD}`,
-    sync: process.env.DATABASE_SYNC,
+    sync: process.env.DATABASE_SYNC === 'true',
+    ssl: process.env.DATABASE_SSL === 'true',
   },
 });
