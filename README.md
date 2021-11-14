@@ -76,3 +76,7 @@ Nest is [MIT licensed](LICENSE).
 
 git reset HEAD~
 git push -f heroku master
+
+## Heroku Install Dev
+
+heroku config:set NPM_CONFIG_PRODUCTION=false
