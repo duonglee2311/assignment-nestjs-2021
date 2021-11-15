@@ -9,4 +9,5 @@ export default () => ({
     sync: process.env.DATABASE_SYNC === 'true',
     ssl: process.env.DATABASE_SSL === 'true',
   },
+  JWT: process.env.JWT_SECRET,
 });
