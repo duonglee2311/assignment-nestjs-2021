@@ -1,20 +1,22 @@
 import {
-  Length,
-  IsEmail,
   IsDate,
-  MinLength,
-  IsString,
-  Matches,
+  IsEmail,
   IsOptional,
+  IsString,
+  Length,
+  Matches,
+  MinLength,
 } from 'class-validator';
+
 import { ApiProperty } from '@nestjs/swagger';
+
 export class CreateUserDto {
-  @ApiProperty()
+  @ApiProperty({ example: 'Cuong Zodinet' })
   @IsString()
   @Length(3, 100)
   name: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'cuongzdn' })
   @IsString()
   @Length(3, 20)
   @Matches(/^[a-zA-Z]([_]?[a-zA-Z0-9]+)*$/, {
@@ -23,17 +25,17 @@ export class CreateUserDto {
   })
   username: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'cuong@zodinet.com' })
   @IsEmail()
   email: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: '12345678' })
   @MinLength(8)
   @IsString()
   password: string;
 
   @IsOptional()
-  @ApiProperty()
+  @ApiProperty({ example: '01/01/1989' })
   @IsDate()
   birthday: string;
 }
