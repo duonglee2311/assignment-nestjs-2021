@@ -46,7 +46,10 @@ export class UserService {
 
     user.password = bcrypt.hashSync(user.password, 10);
 
-    return this._repository.save(user);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { password, ...result } = await this._repository.save(user);
+
+    return result;
   }
 
   findAll() {
