@@ -56,6 +56,10 @@ export class UserService {
     return `This action returns all user`;
   }
 
+  async findOneById(id: string) {
+    const entity = await this._repository.findOne({ id });
+    return entity;
+  }
   async findOne(username: string) {
     const entity = await this._repository.findOne({ username: username });
     return entity;
