@@ -21,6 +21,5 @@ export class UserEntity extends BaseEntity {
   @Column({ nullable: true, type: 'date' })
   birthday: string;
 
-  @Column({ nullable: true, type: 'date' })
   role: RoleEnum;
 }
