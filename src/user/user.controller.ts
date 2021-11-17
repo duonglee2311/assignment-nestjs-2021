@@ -1,3 +1,4 @@
+import { Roles } from './../auth/roles.decorator';
 import {
   Controller,
   Get,
@@ -14,17 +15,17 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
-ApiTags('User');
 @Controller('user')
+@ApiTags('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Post()
+  @Post('register')
   create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
   }
 
-  @Get()
+  @Get('getAll')
   findAll() {
     return this.userService.findAll();
   }
@@ -42,6 +43,7 @@ export class UserController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @Roles('admin')
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.userService.remove(id);
