@@ -52,8 +52,9 @@ export class UserService {
     return result;
   }
 
-  findAll() {
-    return `This action returns all user`;
+  async findAll() {
+    const entities = await this._repository.find();
+    return entities;
   }
 
   async findOneById(id: string) {
@@ -65,11 +66,25 @@ export class UserService {
     return entity;
   }
 
-  update(id: string, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(id: string, updateUserDto: UpdateUserDto) {
+    const entity = await this._repository.findOne(id);
+    if (!entity) {
+      return false;
+    }
+
+    await this._repository.update(id, updateUserDto);
+
+    return true;
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} user`;
+  async remove(id: string) {
+    const entity = await this._repository.findOne(id);
+    if (!entity) {
+      return false;
+    }
+
+    await this._repository.remove(entity);
+
+    return true;
   }
 }
