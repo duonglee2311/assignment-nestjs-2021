@@ -1,5 +1,6 @@
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+
 import { RoleEnum } from './roles.enum';
-import { Entity, Column, PrimaryGeneratedColumn, BaseEntity } from 'typeorm';
 
 @Entity({ name: 'users' })
 export class UserEntity extends BaseEntity {
@@ -21,5 +22,10 @@ export class UserEntity extends BaseEntity {
   @Column({ nullable: true, type: 'date' })
   birthday: string;
 
+  @Column({
+    type: 'enum',
+    enum: RoleEnum,
+    default: RoleEnum.Editor,
+  })
   role: RoleEnum;
 }
