@@ -12,7 +12,7 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('Nestjs Assigment API')
-    .setDescription('Nestjs Assigment API description')
+    .setDescription('Nestjs Assignment API description')
     .setVersion('1.0')
     .addBearerAuth()
     .build();
