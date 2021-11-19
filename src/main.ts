@@ -11,7 +11,7 @@ async function bootstrap() {
   app.setGlobalPrefix('api');
 
   const config = new DocumentBuilder()
-    .setTitle('Nestjs Assigment API')
+    .setTitle('Nestjs Assignment API')
     .setDescription('Nestjs Assignment API description')
     .setVersion('1.0')
     .addBearerAuth()
