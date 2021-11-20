@@ -12,6 +12,8 @@ export class UserService {
   constructor(
     @InjectRepository(UserEntity)
     private _repository: Repository<UserEntity>,
+    @InjectMapper()
+    private readonly mapper: Mapper,
   ) {}
 
   async findByUsernameOrEmail(

@@ -10,7 +10,8 @@ import configuration from './config/configuration';
 import { join } from 'path';
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './auth/roles.guard';
-
+import { AutomapperModule } from '@automapper/nestjs';
+import { classes } from '@automapper/classes';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -42,6 +43,10 @@ import { RolesGuard } from './auth/roles.guard';
     }),
     UserModule,
     AuthModule,
+    AutomapperModule.forRoot({
+      options: [{ name: 'classMapper', pluginInitializer: classes }],
+      singular: true,
+    }),
   ],
   controllers: [AppController],
   providers: [
