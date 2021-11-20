@@ -1,17 +1,18 @@
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
+import { APP_GUARD } from '@nestjs/core';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
+import { AutomapperModule } from '@automapper/nestjs';
 import { Module } from '@nestjs/common';
+import { RolesGuard } from './auth/roles.guard';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
+import { classes } from '@automapper/classes';
 import configuration from './config/configuration';
 import { join } from 'path';
-import { APP_GUARD } from '@nestjs/core';
-import { RolesGuard } from './auth/roles.guard';
-import { AutomapperModule } from '@automapper/nestjs';
-import { classes } from '@automapper/classes';
+
 @Module({
   imports: [
     ConfigModule.forRoot({
