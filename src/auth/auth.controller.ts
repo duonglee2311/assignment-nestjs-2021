@@ -32,7 +32,7 @@ export class AuthController {
   @ApiBearerAuth()
   async getProfile(@Request() req) {
     const { username } = req.user;
-    const { password, ...result } = await this.userService.findOne(username);
+    const result = await this.userService.findOne(username);
     return result;
   }
 }

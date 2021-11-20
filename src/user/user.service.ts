@@ -5,6 +5,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
+import { UserDto } from './dto/user.dto';
 
 @Injectable()
 export class UserService {
@@ -49,21 +50,33 @@ export class UserService {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password, ...result } = await this._repository.save(user);
 
-    return result;
+    const dto = result as UserDto;
+    return dto;
   }
 
   async findAll() {
     const entities = await this._repository.find();
-    return entities;
+
+    const dtos = entities.map((entity) => {
+      const { password, ...rest } = entity;
+      const dto = rest as UserDto;
+      return dto;
+    });
+    return dtos;
   }
 
   async findOneById(id: string) {
     const entity = await this._repository.findOne({ id });
-    return entity;
+    const { password, ...rest } = entity;
+    const dto = rest as UserDto;
+    return dto;
   }
+
   async findOne(username: string) {
     const entity = await this._repository.findOne({ username: username });
-    return entity;
+    const { password, ...rest } = entity;
+    const dto = rest as UserDto;
+    return dto;
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {
@@ -86,5 +99,16 @@ export class UserService {
     await this._repository.remove(entity);
 
     return true;
+  }
+
+  async validateUser(username: string, pass: string) {
+    const user = await this._repository.findOne({ username });
+    if (user && bcrypt.compareSync(pass, user.password)) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { password, ...rest } = user;
+      const dto = rest as UserDto;
+      return dto;
+    }
+    return null;
   }
 }

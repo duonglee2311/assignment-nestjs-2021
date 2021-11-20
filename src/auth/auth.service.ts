@@ -1,3 +1,4 @@
+import { UserDto } from './../user/dto/user.dto';
 import * as bcrypt from 'bcrypt';
 
 import { Injectable } from '@nestjs/common';
@@ -18,14 +19,12 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async validateUser(username: string, pass: string): Promise<any> {
-    const user = await this.userService.findOne(username);
-    if (user && bcrypt.compareSync(pass, user.password)) {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { password, ...result } = user;
-      return result;
-    }
-    return null;
+  async validateUser(
+    username: string,
+    pass: string,
+  ): Promise<UserDto | undefined> {
+    const result = await this.userService.validateUser(username, pass);
+    return result;
   }
 
   async login(user: IUserInfo) {
